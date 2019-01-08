@@ -56,10 +56,9 @@ $(document).ready(function() {
   };
 
   function mapSuccess(response) {
-    console.log(response.length);
     response = sortEvents(response);
     for(let i = 0; i < response.length; i++){
-      mapTitles = response[i].address
+      mapTitles = JSON.parse(response[i].address).address
       id = response[i].id
       var magnitude = parseFloat(response[i].mag).toFixed(2);
       $('#info').append(`<p id=${id}> (${magnitude}) ${mapTitles} </p>`)
