@@ -40,7 +40,7 @@ $(document).ready(function() {
       if(measure >= minMeasure) {
         var latLng = new google.maps.LatLng(response[i].lat,response[i].lon);
         var image = {
-          url: './images/' + type + '.png',
+          url: './images/' + response[i].type + '.png',
           size: new google.maps.Size(20, 32),
           origin: new google.maps.Point(0, 0),
           anchor: new google.maps.Point(0, 32),
@@ -78,7 +78,7 @@ $(document).ready(function() {
     $("#info").empty();
     minMeasure = $(".measure").val();
     for(let i = 0; i < response.length; i++){
-      mapTitles = response[i].address
+      mapTitles = JSON.parse(response[i].address).address
       id = response[i].id
       var measure = parseFloat(response[i].measure).toFixed(2);
       if(measure >= minMeasure) {

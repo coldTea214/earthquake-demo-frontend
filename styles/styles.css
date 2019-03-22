@@ -38,6 +38,6 @@ button {
   width: 50%;
 }
 
-.mag, select {
+.measure, select, input {
   color: black;
 }
