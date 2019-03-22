@@ -61,7 +61,8 @@ $(document).ready(function() {
       mapTitles = JSON.parse(response[i].address).address
       id = response[i].id
       var measure = parseFloat(response[i].measure).toFixed(2);
-      $('#info').append(`<p id=${id}> (${measure}) ${mapTitles} </p>`)
+      var type = response[i].type;
+      $('#info').append(`<p id=${id}> <span class="type">${type}</span> (${measure}) ${mapTitles} </p>`)
     };
     initMap(response, minMeasure);
     console.log(response);
@@ -81,8 +82,9 @@ $(document).ready(function() {
       mapTitles = JSON.parse(response[i].address).address
       id = response[i].id
       var measure = parseFloat(response[i].measure).toFixed(2);
+      var type = response[i].type;
       if(measure >= minMeasure) {
-        $('#info').append(`<p id=${id}> (${measure}) ${mapTitles} </p>`)
+        $('#info').append(`<p id=${id}> <span class="type">${type}</span> (${measure}) ${mapTitles} </p>`)
       };
     };
     initMap(response, minMeasure);

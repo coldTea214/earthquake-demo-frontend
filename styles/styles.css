@@ -41,3 +41,7 @@ button {
 .measure, select, input {
   color: black;
 }
+
+.type {
+  text-transform: capitalize;
+}
