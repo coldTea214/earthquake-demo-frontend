@@ -1,10 +1,10 @@
-var quakes_endpoint = "/events";
+var events_endpoint = "/events?type=";
 var mapTitles;
-var minimumMag = 0;
+var minMeasure = 0;
 
 $(document).ready(function() {
   $.ajax({
-    url: quakes_endpoint,
+    url: events_endpoint + $("#type").find(":selected").val(), 
     method: 'GET',
     success: mapSuccess,
     error: mapError
@@ -13,34 +13,34 @@ $(document).ready(function() {
   $("#find").submit(function(event) {
     event.preventDefault();
     $.ajax({
-      url: quakes_endpoint,
+      url: events_endpoint + $("#type").find(":selected").val(),
       method: 'GET',
       success: remap,
       error: mapError
     });
   });
 
-  // Sort by magnitude
+  // Sort by measure
   function sortEvents(response) {
      var sorted = response.sort(function(a, b) {
-       return (a.mag > b.mag) ? -1 : ((b.mag > a.mag) ? 1 : 0)
+       return (a.measure > b.measure) ? -1 : ((b.measure > a.measure) ? 1 : 0)
      });
 
      return sorted;
   }
 
-  function initMap(response, minimumMag) {
+  function initMap(response, minMeasure) {
     var map = new google.maps.Map(document.getElementById('map'), {
       center: {lat: 37.78, lng: -122.44},
       zoom: 2
     });
     for(let i = 0; i < response.length; i++){
-      minimumMag = $(".mag").val();
-      var magnitude = response[i].mag;
-      if(magnitude >= minimumMag) {
+      minMeasure = $(".measure").val();
+      var measure = response[i].measure;
+      if(measure >= minMeasure) {
         var latLng = new google.maps.LatLng(response[i].lat,response[i].lon);
         var image = {
-          url: './images/earthquake.png',
+          url: './images/' + type + '.png',
           size: new google.maps.Size(20, 32),
           origin: new google.maps.Point(0, 0),
           anchor: new google.maps.Point(0, 32),
@@ -60,10 +60,10 @@ $(document).ready(function() {
     for(let i = 0; i < response.length; i++){
       mapTitles = JSON.parse(response[i].address).address
       id = response[i].id
-      var magnitude = parseFloat(response[i].mag).toFixed(2);
-      $('#info').append(`<p id=${id}> (${magnitude}) ${mapTitles} </p>`)
+      var measure = parseFloat(response[i].measure).toFixed(2);
+      $('#info').append(`<p id=${id}> (${measure}) ${mapTitles} </p>`)
     };
-    initMap(response, minimumMag);
+    initMap(response, minMeasure);
     console.log(response);
   };
 
@@ -76,16 +76,16 @@ $(document).ready(function() {
   function remap(response) {
     response = sortEvents(response);
     $("#info").empty();
-    minimumMag = $(".mag").val();
+    minMeasure = $(".measure").val();
     for(let i = 0; i < response.length; i++){
       mapTitles = response[i].address
       id = response[i].id
-      var magnitude = parseFloat(response[i].mag).toFixed(2);
-      if(magnitude >= minimumMag) {
-        $('#info').append(`<p id=${id}> (${magnitude}) ${mapTitles} </p>`)
+      var measure = parseFloat(response[i].measure).toFixed(2);
+      if(measure >= minMeasure) {
+        $('#info').append(`<p id=${id}> (${measure}) ${mapTitles} </p>`)
       };
     };
-    initMap(response, minimumMag);
+    initMap(response, minMeasure);
     console.log(response);
   }
 });

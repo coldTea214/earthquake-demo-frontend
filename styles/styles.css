@@ -38,6 +38,6 @@ button {
   width: 50%;
 }
 
-.mag {
+.mag, select {
   color: black;
 }
