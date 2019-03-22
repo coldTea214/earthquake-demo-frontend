@@ -14,7 +14,7 @@ end
 get '/events' do
     content_type 'text/json'
     puts "Requesting #{settings.events_api}"
-    response = HTTParty.get(settings.events_api, :headers => {'Content-Type' => 'text/plain'})
+    response = HTTParty.get(settings.events_api, :headers => {'Content-Type' => 'text/plain'}, :query => query)
     return response.body
 end
 
