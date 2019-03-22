@@ -1,2 +1,4 @@
+require 'rubygems'
 require './app.rb'
-run GeoQuake
+
+run Sinatra::Application
