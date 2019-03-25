@@ -5,7 +5,7 @@ var minMeasure = 0;
 function getEndpoint(type) {
   url = events_endpoint;
   if (type != "")
-    url += url + "?type=" + type;
+    url +=  "?type=" + type;
   return url;
 }
 
