@@ -1,10 +1,18 @@
-var events_endpoint = "/events?type=";
+var events_endpoint = "/events";
 var mapTitles;
 var minMeasure = 0;
 
+function getEndpoint(type) {
+  url = events_endpoint;
+  if (type != "")
+    url += url + "?type=" + type;
+  return url;
+}
+
 $(document).ready(function() {
+
   $.ajax({
-    url: events_endpoint + $("#type").find(":selected").val(), 
+    url: getEndpoint($("#type").find(":selected").val()), 
     method: 'GET',
     success: mapSuccess,
     error: mapError
@@ -13,7 +21,7 @@ $(document).ready(function() {
   $("#find").submit(function(event) {
     event.preventDefault();
     $.ajax({
-      url: events_endpoint + $("#type").find(":selected").val(),
+      url: getEndpoint($("#type").find(":selected").val()),
       method: 'GET',
       success: remap,
       error: mapError
