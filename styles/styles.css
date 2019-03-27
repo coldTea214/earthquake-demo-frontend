@@ -38,6 +38,10 @@ button {
   width: 50%;
 }
 
-.mag {
+.measure, select, input {
   color: black;
+}
+
+.type {
+  text-transform: capitalize;
 }
