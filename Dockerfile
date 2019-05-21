@@ -2,7 +2,7 @@ FROM ruby:2.5.3
 
 ADD . /geoquake
 WORKDIR /geoquake
-RUN bundle install
+RUN bundle config mirror.https://rubygems.org https://gems.ruby-china.com && bundle install
 
 ENV PORT 8080
 
